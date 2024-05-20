@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, VStack, Input, Table, Thead, Tbody, Tr, Th, Td, HStack, IconButton } from "@chakra-ui/react";
+import { Container, VStack, Input, Table, Thead, Tbody, Tr, Th, Td, HStack, IconButton, Heading } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
 
 const Index = () => {
@@ -33,6 +33,9 @@ Item5, Code5, Class5, Segment5, Category5
   return (
     <Container centerContent maxW="container.md" height="100vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
       <VStack spacing={4} width="100%">
+        <Heading as="h1" size="lg">
+          ITEM CODE SELECTION
+        </Heading>
         <HStack width="100%">
           <Input placeholder="Type your search query..." value={query} onChange={(e) => setQuery(e.target.value)} flex="1" />
           <IconButton aria-label="Search" icon={<FaSearch />} onClick={handleSearch} />
