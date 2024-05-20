@@ -8,21 +8,19 @@ const Index = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    const text = `
-Item1, Code1, Class1, Segment1, Category1
-Item2, Code2, Class2, Segment2, Category2
-Item3, Code3, Class3, Segment3, Category3
-Item4, Code4, Class4, Segment4, Category4
-Item5, Code5, Class5, Segment5, Category5
-    `;
-    const parsedData = text
-      .trim()
-      .split("\n")
-      .map((line) => {
-        const [item, code, className, segment, category] = line.split(", ");
-        return { item, code, className, segment, category };
-      });
-    setData(parsedData);
+    fetch("/src/data/records.txt")
+      .then((response) => response.text())
+      .then((text) => {
+        const parsedData = text
+          .trim()
+          .split("\n")
+          .map((line) => {
+            const [item, code, className, segment, category] = line.split(", ");
+            return { item, code, className, segment, category };
+          });
+        setData(parsedData);
+      })
+      .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
   const handleSearch = () => {
