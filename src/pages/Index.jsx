@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, VStack, Input, List, ListItem, Text, HStack, IconButton } from "@chakra-ui/react";
+import { Container, VStack, Input, Table, Thead, Tbody, Tr, Th, Td, HStack, IconButton } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
 
 const Index = () => {
@@ -37,19 +37,28 @@ Item5, Code5, Class5, Segment5, Category5
           <Input placeholder="Type your search query..." value={query} onChange={(e) => setQuery(e.target.value)} flex="1" />
           <IconButton aria-label="Search" icon={<FaSearch />} onClick={handleSearch} />
         </HStack>
-        <List spacing={3} width="100%">
-          {results.map((result, index) => (
-            <ListItem key={index} padding="10px" borderWidth="1px" borderRadius="md">
-              <Text>
-                <strong>Item:</strong> {result.item} <br />
-                <strong>Code:</strong> {result.code} <br />
-                <strong>Class:</strong> {result.className} <br />
-                <strong>Segment:</strong> {result.segment} <br />
-                <strong>Category:</strong> {result.category}
-              </Text>
-            </ListItem>
-          ))}
-        </List>
+        <Table variant="simple" width="100%">
+          <Thead>
+            <Tr>
+              <Th>Item</Th>
+              <Th>Code</Th>
+              <Th>Class</Th>
+              <Th>Segment</Th>
+              <Th>Category</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {results.map((result, index) => (
+              <Tr key={index}>
+                <Td>{result.item}</Td>
+                <Td>{result.code}</Td>
+                <Td>{result.className}</Td>
+                <Td>{result.segment}</Td>
+                <Td>{result.category}</Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
       </VStack>
     </Container>
   );
