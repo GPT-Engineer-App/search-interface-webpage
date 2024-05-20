@@ -37,7 +37,7 @@ Item5, Code5, Class5, Segment5, Category5
           ITEM CODE SELECTION
         </Heading>
         <HStack width="100%">
-          <Input placeholder="Type your search query..." value={query} onChange={(e) => setQuery(e.target.value)} flex="1" />
+          <Input placeholder="Type your search query..." value={query} onChange={(e) => setQuery(e.target.value)} flex="1" onKeyDown={(e) => e.key === "Enter" && handleSearch()} />
           <IconButton aria-label="Search" icon={<FaSearch />} onClick={handleSearch} />
         </HStack>
         <Table variant="simple" width="100%">
