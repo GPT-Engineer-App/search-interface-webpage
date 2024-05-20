@@ -1,15 +1,27 @@
-import React, { useState } from "react";
-import { Container, VStack, Input, Button, List, ListItem, Text, HStack, IconButton } from "@chakra-ui/react";
+import React, { useState, useEffect } from "react";
+import { Container, VStack, Input, List, ListItem, Text, HStack, IconButton } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
 
 const Index = () => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch("/src/data/records.txt")
+      .then((response) => response.text())
+      .then((text) => {
+        const parsedData = text.split("\n").map((line) => {
+          const [item, code, className, segment, category] = line.split(", ");
+          return { item, code, className, segment, category };
+        });
+        setData(parsedData);
+      });
+  }, []);
 
   const handleSearch = () => {
-    // Simulate a search operation
-    const simulatedResults = ["Result 1 for " + query, "Result 2 for " + query, "Result 3 for " + query, "Result 4 for " + query, "Result 5 for " + query];
-    setResults(simulatedResults);
+    const filteredResults = data.filter((record) => record.item.toLowerCase().includes(query.toLowerCase()));
+    setResults(filteredResults);
   };
 
   return (
@@ -22,7 +34,13 @@ const Index = () => {
         <List spacing={3} width="100%">
           {results.map((result, index) => (
             <ListItem key={index} padding="10px" borderWidth="1px" borderRadius="md">
-              <Text>{result}</Text>
+              <Text>
+                <strong>Item:</strong> {result.item} <br />
+                <strong>Code:</strong> {result.code} <br />
+                <strong>Class:</strong> {result.className} <br />
+                <strong>Segment:</strong> {result.segment} <br />
+                <strong>Category:</strong> {result.category}
+              </Text>
             </ListItem>
           ))}
         </List>
