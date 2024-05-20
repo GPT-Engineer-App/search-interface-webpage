@@ -8,7 +8,7 @@ const Index = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch("/src/data/records.txt")
+    fetch("/records.txt")
       .then((response) => response.text())
       .then((text) => {
         const parsedData = text.split("\n").map((line) => {
